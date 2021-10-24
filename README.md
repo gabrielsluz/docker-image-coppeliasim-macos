@@ -71,19 +71,21 @@ xhost + $IP
 Run the container:
 
 ```bash
-sh run.sh
+docker run -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix -v $PWD/shared:/shared -p 19996-19999:19996-19999 -it coppeliasim-ubuntu20
 ```
 
 Inside the container:
 
 ```bash
-./run_cop.sh
+./run_cop
 ```
+
+You can adjust the window size in the lower right corner of the window.
 
 ## Observations:
 
 - It is necessary to restart the XQuartz when CoppeliaSim is closed.
-- The Dockerfile and run.sh only expose and publish the ports 19996 to 19999, feel free to change it. Note that CoppeliaSim uses port 19997, so it should be published.
+- The Dockerfile only exposes and publishes the ports 19996 to 19999, feel free to change it. Note that CoppeliaSim uses port 19997, so it should be published.
 - Some plugins are not loaded. For example, B0 and ROS.
 
 
